@@ -1,6 +1,7 @@
 #Flips a coin to see who goes first.
 def coin_flip
-  @player_turn = 1 + rand(2) 
+  @player_turn = 1 + rand(2)
+  #1 is heads / player 1, 2 is tails / player 2.
   @player_turn == 1 ? "Heads" : "Tails"
 end
 

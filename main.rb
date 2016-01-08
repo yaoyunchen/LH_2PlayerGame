@@ -26,11 +26,11 @@ while game_running
 
     #Determine which player goes first.
     puts "Determining who's first...Heads for #{@player_one[:name]}, Tails for #{@player_two[:name]}."
-    coin_flip
+    toss = coin_flip
     if @player_turn == 1
-      puts "Flipping a coin...#{coin_flip}! #{@player_one[:name]} goes first!"
+      puts "Flipping a coin...#{toss}! #{@player_one[:name]} goes first!"
     else
-      puts "Flipping a coin...#{coin_flip}! #{@player_two[:name]} goes first!"
+      puts "Flipping a coin...#{toss}! #{@player_two[:name]} goes first!"
     end
     
 
