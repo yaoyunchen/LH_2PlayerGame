@@ -1,4 +1,4 @@
-@game_running = true
+@program_running = true
 @new_game = true
 @game_over = false
 
@@ -7,9 +7,7 @@
   num_two: 0,
   result: 0
 }
-@operator = ''
 
-@player_turn = 0
 @player_answer = 0
 
 
