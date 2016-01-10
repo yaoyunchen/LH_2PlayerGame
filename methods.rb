@@ -16,10 +16,8 @@ end
 #Resets the game.
 def game_reset
   @game_over = false
-  @player1.lives = 3
-  @player1.score = 0
-  @player2.lives = 3
-  @player2.score = 0
+  @player1.reset
+  @player2.reset
 end
 
 
@@ -49,13 +47,12 @@ def verify_answer
 
   if @player_answer.to_i == @question[:result].to_i
     #If the answer is correct.
-    @current_player == 1 ? @player1.score += 1 : @player2.score += 1
+    @current_player == 1 ? @player1.gain_point : @player2.gain_point
 
     return_str << "Correct! \n#{@player1.name}: #{@player1.score} pts, #{@player2.name}: #{@player2.score} pts.".green
   else
     #If the answer is incorrect.
-    @current_player == 1 ? @player1.lives -= 1 : @player2.lives -= 1
-
+    @current_player == 1 ? @player1.lose_life : @player2.lose_life
     return_str << "WRONG! Answer is #{@question[:result]}.\n".red + check_lives
   end
 
@@ -70,10 +67,10 @@ end
 #Check how much life is left for players.
 def check_lives
   if @player1.lives == 0
-    @player2.wins += 1
+    @player2.gain_win
     "#{@player1.name} has no lives left.  #{@player1.name} has lost!".yellow
   elsif @player2.lives == 0
-    @player1.wins += 1
+    @player1.gain_win
     "#{@player2.name} has no lives left.  #{@player2.name} has lost!".yellow
   else
     "#{@player1.name}: #{@player1.lives} lives, #{@player2.name}: #{@player2.lives} lives.".red
