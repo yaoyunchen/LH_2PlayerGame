@@ -2,6 +2,7 @@
 require "./Player"
 require "./variables"
 require "./methods"
+require "./exceptions"
 require "colorize"
 
 while @program_running
@@ -15,12 +16,13 @@ while @program_running
       
       #Set up the  game if this is the first time.
       setup_new_game if @new_game
-     
+      
       #Resets the game.
       game_reset 
 
       #Determine which player goes first.
       set_current_player(0)
+      
       #Pretend there's a coin flip to determine player order.
       puts coin_flip   
 
@@ -32,7 +34,13 @@ while @program_running
         puts generate_question 
 
         #Ask user for answer.
-        @player_answer = get_num
+        #@player_answer = get_num
+        begin
+          get_player_answer
+        rescue InvalidGuessError
+          puts "Invalid entry.  Please enter a number."
+          retry
+        end
 
         #Check if answer is correct.
         puts verify_answer

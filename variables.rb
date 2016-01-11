@@ -7,7 +7,7 @@
   num_two: 0,
   result: 0
 }
-
+@current_player = 0
 @player_answer = 0
 
 

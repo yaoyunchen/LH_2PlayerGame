@@ -1,17 +1,26 @@
 #Used to set up a new game.
 def setup_new_game
- #Create player 1.
-  puts "What is player 1's name?"
-  @player1 = Player.new(gets.chomp)
+  #Create player 1.
+  @player1 = Player.new(1)
+  get_name(@player1)  
 
   #Create player 2.
-  puts "What is player 2's name?"
-  @player2 = Player.new(gets.chomp)
+  @player2 = Player.new(2)
+  get_name(@player2)
 
   #Game begins.  Not a new game any more.
   @new_game = false
 end
 
+#Get player names.
+def get_name(player)
+  puts "What is player #{player.player_number}'s name?"
+  player.name = gets.chomp
+  raise NoNameError, "No name." if player.name.empty?
+rescue NoNameError
+  puts "Please enter a name."
+  retry
+end
 
 #Resets the game.
 def game_reset
@@ -29,6 +38,17 @@ def set_current_player(player)
   @current_player == 1 ? @current_player = 2 : @current_player = 1
 end
 
+
+#Pretend the player order is determined by a coin flip.
+def coin_flip
+  ret_str = "Determining who's first...Heads for #{@player1.name}, Tails for #{@player2.name}\n"
+  if @current_player == 1  
+    ret_str << "Flipping a coin...Heads! #{@player1.name} goes first!" 
+  else
+    ret_str <<  "Flipping a coin...Tails! #{@player2.name} goes first!"
+  end
+   ret_str
+end
 
 #Generate a question to ask a player.
 def generate_question
@@ -84,13 +104,6 @@ def check_if_game_over
 end
 
 
-#Pretend the player order is determined by a coin flip.
-def coin_flip
-  ret_str = "Determining who's first...Heads for #{@player1.name}, Tails for #{@player2.name}\n"
-  ret_str << @current_player == 1 ? "Flipping a coin...Heads! #{@player1.name} goes first!" : "Flipping a coin...Tails! #{@player2.name} goes first!"
-end
-
-
 #Only allow numeric entries.
 def get_num
   is_num = false
@@ -100,12 +113,23 @@ def get_num
       is_num = true
     end
   rescue ArgumentError
-    puts :"Invalid entry.  Please enter a number."
+    puts "Invalid entry.  Please enter a number."
     retry
   end 
   return num
 end
 
 
+#Gets the player answer.
+def get_player_answer
+  @player_answer = gets.chomp
+  raise InvalidGuessError, "Invalid entry" unless is_number?(@player_answer) == true
+end
+
+
+#Checks if the entered string is a number and returns true if it is.
+def is_number?(string)
+  true if Float(string) rescue false
+end
 
 

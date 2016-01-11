@@ -1,7 +1,8 @@
 class Player
   attr_accessor :name
-  attr_reader :lives, :score, :wins
-  def initialize(name)
+  attr_reader :lives, :score, :wins, :player_number
+  def initialize(player_number)
+    @player_number = player_number
     @name = name
     @lives = 3
     @score = 0
